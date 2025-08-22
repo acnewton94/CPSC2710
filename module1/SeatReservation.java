@@ -1,5 +1,8 @@
 import java.time.LocalDate;
 
 public class SeatReservation {
-    // outline only; fields & methods will come later
+    private String flightDesignator;
+    private LocalDate flightDate;
+    private String firstName;
+    private String lastName;
 }
