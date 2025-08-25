@@ -7,7 +7,7 @@ public class SeatReservation {
     private String lastName;
 
     public String getFlightDesignator() { return flightDesignator; }
-    public void setFlightDesignator(String fd) 
+    public void setFlightDesignator(String fd) {
 	if (fd == null) {
 	throw new IllegalArgumentException("flightDesignator cannot be null");
 	}
