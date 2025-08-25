@@ -17,6 +17,12 @@ public class SeatReservation {
 	}
 	this.flightDesignator = fd;
      }
+    public void setFlightDesignator(String fd) { 
+        if (fd == null){
+            throw new IllegalArgumentException("flight designator cannot be null");
+        } 
+        this.flightDesignator = fd; 
+    }
 
     public LocalDate getFlightDate() { return flightDate; }
     public void setFlightDate(LocalDate date) { this.flightDate = date; }
