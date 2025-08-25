@@ -7,7 +7,16 @@ public class SeatReservation {
     private String lastName;
 
     public String getFlightDesignator() { return flightDesignator; }
-    public void setFlightDesignator(String fd) { this.flightDesignator = fd; }
+    public void setFlightDesignator(String fd) 
+	if (fd == null) {
+	throw new IllegalArgumentException("flightDesignator cannot be null");
+	}
+	int len = fd.length();
+	if (len < 4  || len > 6) {
+	    throw new IllegalArgumentException("flightDesignator length must be between 4 and 6 characters");
+	}
+	this.flightDesignator = fd;
+     }
 
     public LocalDate getFlightDate() { return flightDate; }
     public void setFlightDate(LocalDate date) { this.flightDate = date; }
@@ -31,3 +40,4 @@ public class SeatReservation {
              + ",lastName=" + ln + "}";
     }
 }
+
