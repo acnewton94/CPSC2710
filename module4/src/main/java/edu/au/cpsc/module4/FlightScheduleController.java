@@ -20,7 +20,6 @@ import java.util.Set;
  Description: JavaFX controller for table/detail editor with CSV persistence.
 */
 
-@SuppressWarnings("unused")
 public class FlightScheduleController {
 
     @FXML private TableView<ScheduledFlight> table;
@@ -89,11 +88,17 @@ public class FlightScheduleController {
                 )
         );
 
-        tfDesignator.setOnAction(e -> onAddOrUpdate());
-        tfDepIdent.setOnAction(e -> onAddOrUpdate());
-        tfDepTime.setOnAction(e -> onAddOrUpdate());
-        tfArrIdent.setOnAction(e -> onAddOrUpdate());
-        tfArrTime.setOnAction(e -> onAddOrUpdate());
+        // ENTER should only fire when the action is enabled (prevents parsing blanks)
+        btnAddOrUpdate.setDefaultButton(true);
+        Runnable enterAction = () -> { if (!btnAddOrUpdate.isDisabled()) onAddOrUpdate(); };
+        tfDesignator.setOnAction(e -> enterAction.run());
+        tfDepIdent.setOnAction(e -> enterAction.run());
+        tfDepTime.setOnAction(e -> enterAction.run());
+        tfArrIdent.setOnAction(e -> enterAction.run());
+        tfArrTime.setOnAction(e -> enterAction.run());
+
+        // Seed sample data on first run so you SEE content and the CSV is created
+        seedIfEmpty();
     }
 
     @FXML
@@ -106,6 +111,14 @@ public class FlightScheduleController {
 
     @FXML
     private void onAddOrUpdate() {
+        // Block submission if any required field is blank
+        if (!inputsComplete()) {
+            log("[warn] Add/Update ignored: fields incomplete");
+            return;
+        }
+        // Validate time format before parsing
+        if (!validTimes()) return;
+
         try {
             if (table.getSelectionModel().getSelectedItem() == null) {
                 // ADD
@@ -208,6 +221,56 @@ public class FlightScheduleController {
         sf.setArrivalTime(arr);
         sf.setDaysOfWeek(days);
         return sf;
+    }
+
+    private boolean inputsComplete() {
+        return !tfDesignator.getText().trim().isEmpty()
+                && !tfDepIdent.getText().trim().isEmpty()
+                && !tfDepTime.getText().trim().isEmpty()
+                && !tfArrIdent.getText().trim().isEmpty()
+                && !tfArrTime.getText().trim().isEmpty();
+    }
+
+    private boolean validTimes() {
+        try {
+            LocalTime.parse(tfDepTime.getText().trim(), HM);
+            LocalTime.parse(tfArrTime.getText().trim(), HM);
+            return true;
+        } catch (Exception e) {
+            showError("Invalid time format", "Please enter times as HH:mm (e.g., 07:05 or 19:40).");
+            log("[warn] bad time format: dep=" + tfDepTime.getText() + ", arr=" + tfArrTime.getText());
+            return false;
+        }
+    }
+
+    private void seedIfEmpty() {
+        if (!db.getScheduledFlights().isEmpty()) return;
+
+        ScheduledFlight a = new ScheduledFlight();
+        a.setFlightDesignator("DL1331");
+        a.setDepartureAirportIdent("KPIT");
+        a.setDepartureTime(LocalTime.parse("13:30", HM));
+        a.setArrivalAirportIdent("KATL");
+        a.setArrivalTime(LocalTime.parse("15:00", HM));
+        a.setDaysFromString("MTWRF");
+
+        ScheduledFlight b = new ScheduledFlight();
+        b.setFlightDesignator("DL1332");
+        b.setDepartureAirportIdent("KATL");
+        b.setDepartureTime(LocalTime.parse("11:00", HM));
+        b.setArrivalAirportIdent("KPIT");
+        b.setArrivalTime(LocalTime.parse("12:30", HM));
+        b.setDaysFromString("MTWRFUS");
+
+        db.addScheduledFlight(a);
+        db.addScheduledFlight(b);
+
+        try {
+            AirlineDatabaseIO.saveToDefault(db);
+            log("[seed] wrote airline-db.csv with " + db.getScheduledFlights().size() + " rows");
+        } catch (IOException e) {
+            log("[seed] failed to save: " + e);
+        }
     }
 
     private void saveNow() throws IOException {

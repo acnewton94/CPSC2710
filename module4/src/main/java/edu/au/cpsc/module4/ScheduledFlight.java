@@ -6,6 +6,14 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/*
+ Project: Module 4 – Flight Designator App
+ Author: Alex Newton
+ Auburn Email: azn0100@auburn.edu
+ Date: 2025-09-14
+ Description: JavaFX controller for table/detail editor with CSV persistence.
+*/
+
 public class ScheduledFlight {
     private String flightDesignator;
     private String departureAirportIdent;
