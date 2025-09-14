@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!-- One (and only one) root node -->
+<BorderPane xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.au.cpsc.module4.FlightScheduleController"
+            prefWidth="1100" prefHeight="520">
+
+    <center>
+        <TableView fx:id="table">
+            <columns>
+                <TableColumn fx:id="colDesignator" text="Designator" prefWidth="140"/>
+                <TableColumn fx:id="colDepIdent"  text="Dep Ident"  prefWidth="120"/>
+                <TableColumn fx:id="colArrIdent"  text="Arr Ident"  prefWidth="120"/>
+                <TableColumn fx:id="colArrTime"   text="Arr Time"   prefWidth="120"/>
+                <TableColumn fx:id="colDepTime"   text="Dep Time"   prefWidth="120"/>
+                <TableColumn fx:id="colDays"      text="Days"       prefWidth="140"/>
+            </columns>
+        </TableView>
+    </center>
+
+    <right>
+        <GridPane hgap="10" vgap="10" BorderPane.alignment="CENTER">
+            <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+
+            <columnConstraints>
+                <ColumnConstraints minWidth="120"/>
+                <ColumnConstraints minWidth="240" hgrow="ALWAYS"/>
+            </columnConstraints>
+
+            <children>
+                <Label text="Flight Designator:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="tfDesignator"   GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Departure Ident:"    GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="tfDepIdent"     GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Departure Time (HH:mm):" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <TextField fx:id="tfDepTime"      GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <Label text="Arrival Ident:"      GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <TextField fx:id="tfArrIdent"     GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                <Label text="Arrival Time (HH:mm):" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <TextField fx:id="tfArrTime"      GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                <Label text="Days:"               GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                <HBox spacing="6" alignment="CENTER_LEFT" GridPane.rowIndex="5" GridPane.columnIndex="1">
+                    <children>
+                        <ToggleButton fx:id="tbM" text="M"/>
+                        <ToggleButton fx:id="tbT" text="T"/>
+                        <ToggleButton fx:id="tbW" text="W"/>
+                        <ToggleButton fx:id="tbR" text="R"/>
+                        <ToggleButton fx:id="tbF" text="F"/>
+                        <ToggleButton fx:id="tbU" text="U"/>
+                        <ToggleButton fx:id="tbS" text="S"/>
+                    </children>
+                </HBox>
+
+                <HBox spacing="8" alignment="CENTER_LEFT" GridPane.rowIndex="6" GridPane.columnIndex="1">
+                    <children>
+                        <Button fx:id="btnAddOrUpdate" text="Add"   onAction="#onAddOrUpdate"/>
+                        <Button fx:id="btnNew"         text="New"   onAction="#onNew"/>
+                        <Button fx:id="btnDelete"      text="Delete" onAction="#onDelete"/>
+                    </children>
+                </HBox>
+            </children>
+        </GridPane>
+    </right>
+</BorderPane>
