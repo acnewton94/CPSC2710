@@ -1,0 +1,64 @@
+@font-face {
+    font-family: "Times New Roman";
+    src: url("fonts/times.ttf");
+}
+
+#root-grid {
+    -fx-background-color: #0f172a;
+    -fx-background-image: url("img/logo.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-opacity: 0.98;
+}
+
+#airports-btn, #seat-reservation-btn, #flight-schedule-btn, #aircraft-btn {
+    -fx-padding: 18 22 18 78;
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+    -fx-background-radius: 16;
+    -fx-background-insets: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 16, 0.2, 0, 6);
+    -fx-opacity: 0.92;
+    -fx-cursor: hand;
+
+    -fx-pref-width: 320px;
+    -fx-max-width: 360px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+#airports-btn, #seat-reservation-btn {
+    -fx-font-family: "Times New Roman";
+}
+
+#airports-btn {
+    -fx-background-color: #1e293b;
+    -fx-background-image: url("img/airports.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 12 50%;
+    -fx-background-size: 48 48;
+}
+#seat-reservation-btn {
+    -fx-background-color: #334155;
+    -fx-background-image: url("img/seat.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 12 50%;
+    -fx-background-size: 48 48;
+}
+#flight-schedule-btn {
+    -fx-background-color: #0f766e;
+    -fx-background-image: url("img/schedule.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 12 50%;
+    -fx-background-size: 48 48;
+}
+#aircraft-btn {
+    -fx-background-color: #7c3aed;
+    -fx-background-image: url("img/aircraft.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 12 50%;
+    -fx-background-size: 48 48;
+}
+
+#airports-btn:hover, #seat-reservation-btn:hover, #flight-schedule-btn:hover, #aircraft-btn:hover { -fx-opacity: 1.0; }
+#airports-btn:pressed, #seat-reservation-btn:pressed, #flight-schedule-btn:pressed, #aircraft-btn:pressed { -fx-opacity: 0.85; }

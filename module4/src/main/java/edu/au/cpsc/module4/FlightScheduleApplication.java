@@ -6,11 +6,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /*
- Project: Module 4 – Flight Designator App
+ Project: Module 5
  Author: Alex Newton
  Auburn Email: azn0100@auburn.edu
- Date: 2025-09-14
- Description: JavaFX controller for table/detail editor with CSV persistence.
+ Date: 2025-09-22
 */
 
 public class FlightScheduleApplication extends Application {

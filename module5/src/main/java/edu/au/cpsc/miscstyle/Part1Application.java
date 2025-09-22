@@ -5,6 +5,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/*
+ Project: Module 5
+ Author: Alex Newton
+ Auburn Email: azn0100@auburn.edu
+ Date: 2025-09-22
+*/
+
 public class Part1Application extends Application {
     @Override
     public void start(Stage stage) throws Exception {
