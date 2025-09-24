@@ -1,0 +1,40 @@
+/* Background panel */
+#background { -fx-background-color: #dad7cd; }
+
+/* Shape fills */
+#foreground { -fx-fill: #272838; }
+#highlight  { -fx-fill: #ff6b6b; }
+#accent     { -fx-fill: #7e7f9a; }
+
+/* Rectangle in VBox -> Group:
+   5px inside stroke, green, transparent fill so the circle shows through */
+VBox Group Rectangle {
+  -fx-stroke: rgb(70,155,75);
+  -fx-stroke-width: 5px;
+  -fx-stroke-type: inside;
+  -fx-fill: transparent; /* NOT -fx-opacity (keeps stroke visible) */
+}
+
+/* Circle behind the rectangle */
+VBox Group Circle {
+  -fx-fill: #7e7f9a;
+}
+
+/* Hyperlinks */
+.hyperlink {
+  -fx-text-fill: #ff6b6b;
+  -fx-underline: true;
+}
+.hyperlink:visited {
+  -fx-text-fill: #272838;
+}
+
+/* ComboBox substructure: only arrow-button + arrow inside ComboBox */
+.combo-box .arrow-button { -fx-background-color: #ff6b6b; }
+.combo-box .arrow-button .arrow { -fx-background-color: white; }
+
+/* CheckBox substructure: color the check mark background */
+.check-box .mark { -fx-background-color: #7e7f9a; }
+
+/* HBox with ID button-row: center vertically, right-align horizontally */
+#button-row { -fx-alignment: center-right; }
