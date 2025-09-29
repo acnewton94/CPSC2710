@@ -1,72 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="edu.au.cpsc.part1.Part1Controller">
-    <center>
-        <VBox spacing="10" padding="12">
-            <children>
-                <Label text="Bindings Practice"/>
-                <GridPane hgap="10" vgap="8">
-                    <columnConstraints>
-                        <ColumnConstraints percentWidth="35"/>
-                        <ColumnConstraints percentWidth="65"/>
-                    </columnConstraints>
-                    <children>
-                        <Label text="Message:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                        <TextField fx:id="messageTextField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-                        <Label text="Echo (bound):" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                        <TextField fx:id="echoTextField" editable="false" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-
-                        <Label text="Bidirectional #1:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                        <TextField fx:id="firstBidirectionalTextField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-
-                        <Label text="Bidirectional #2:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                        <TextField fx:id="secondBidirectionalTextField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-
-                        <Label text="Secret opacity:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                        <Slider fx:id="secretSlider" min="0.0" max="1.0" value="0.5"
-                                GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-
-                        <Label text="Select me -> label:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-                        <HBox spacing="10" GridPane.rowIndex="5" GridPane.columnIndex="1">
-                            <children>
-                                <CheckBox fx:id="selectMeCheckBox" text="Select me"/>
-                                <Label fx:id="selectMeLabel" text="false"/>
-                            </children>
-                        </HBox>
-
-                        <Label text="Tweet (<=10 chars valid):" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
-                        <TextField fx:id="tweetTextField" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
-
-                        <Label text="# of chars:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
-                        <Label fx:id="numberOfCharactersLabel" text="0" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
-
-                        <Label text="Validity:" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
-                        <Label fx:id="validityLabel" text="Valid" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
-                    </children>
-                </GridPane>
-
-                <StackPane prefHeight="160">
-                    <children>
-                        <ImageView fitWidth="300" preserveRatio="true">
-                            <image>
-                                <Image url="@img.png"/>
-                            </image>
-                        </ImageView>
-                        <ImageView fx:id="secretOverlayImageView" fitWidth="300" preserveRatio="true" opacity="0.5">
-                            <image>
-                                <Image url="@img.png"/>
-                            </image>
-                        </ImageView>
-                    </children>
-                </StackPane>
-            </children>
-        </VBox>
-    </center>
-</BorderPane>
+<VBox alignment="CENTER" prefHeight="300.0" prefWidth="500.0" spacing="20.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="edu.au.cpsc.part1.Part1Controller">
+   <children>
+      <HBox alignment="CENTER_LEFT" spacing="10.0">
+         <children>
+            <Label text="Input:" />
+            <TextField fx:id="messageTextField" promptText="Type something!" HBox.hgrow="ALWAYS" />
+            <Label text="Echo:" />
+            <TextField fx:id="echoTextField" editable="false" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+         <children>
+            <Label text="Input:" />
+            <TextField fx:id="firstBidirectionalTextField" promptText="Type something!" HBox.hgrow="ALWAYS" />
+            <Label text="Input:" />
+            <TextField fx:id="secondBidirectionalTextField" promptText="Type something!" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+         <children>
+            <StackPane>
+               <children>
+                  <Group>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Got a secret" x="50.0" y="10.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="can you keep it?" x="50.0" y="50.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </Group>
+                  <ImageView fx:id="secretOverlayImageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
+            <Slider fx:id="secretSlider" max="1.0" orientation="VERTICAL" value="1.0" />
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+         <children>
+            <CheckBox fx:id="selectMeCheckBox" mnemonicParsing="false" text="Select me!" />
+            <Label fx:id="selectMeLabel" text="Label" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+         <children>
+            <Label text="Tweet:" />
+            <TextField fx:id="tweetTextField" />
+            <Label text="Number of characters:" />
+            <Label fx:id="numberOfCharactersLabel" />
+            <Label fx:id="validityLabel" />
+         </children>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+</VBox>

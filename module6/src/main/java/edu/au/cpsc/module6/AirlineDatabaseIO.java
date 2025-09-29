@@ -1,4 +1,4 @@
-package edu.au.cpsc.module4;
+package edu.au.cpsc.module6;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -58,34 +58,49 @@ public class AirlineDatabaseIO {
     }
 
     // ---- convenience: relative file "airline-db.csv" ----
-    public static Path defaultDbPath() { return Path.of("airline-db.csv"); }
+    public static Path defaultDbPath() {
+        return Path.of("airline-db.csv");
+    }
 
     public static void saveToDefault(AirlineDatabase ad) throws IOException {
-        try (OutputStream os = Files.newOutputStream(defaultDbPath())) { save(ad, os); }
+        try (OutputStream os = Files.newOutputStream(defaultDbPath())) {
+            save(ad, os);
+        }
     }
 
     public static AirlineDatabase loadFromDefault() throws IOException {
         Path p = defaultDbPath();
         if (!Files.exists(p)) return new AirlineDatabase();
-        try (InputStream is = Files.newInputStream(p)) { return load(is); }
+        try (InputStream is = Files.newInputStream(p)) {
+            return load(is);
+        }
     }
 
     // ---- CSV helpers ----
     private static String esc(String s) {
         return (s.contains(",") || s.contains("\"")) ? "\"" + s.replace("\"", "\"\"") + "\"" : s;
     }
+
     private static String unesc(String s) {
         s = s.trim();
-        return (s.startsWith("\"") && s.endsWith("\"")) ? s.substring(1, s.length()-1).replace("\"\"", "\"") : s;
+        return (s.startsWith("\"") && s.endsWith("\"")) ? s.substring(1, s.length() - 1).replace("\"\"", "\"") : s;
     }
+
     private static List<String> split(String line) {
         ArrayList<String> out = new ArrayList<>();
-        boolean inQ = false; StringBuilder cur = new StringBuilder();
-        for (int i=0;i<line.length();i++){
-            char c=line.charAt(i);
-            if (c=='"') { if (inQ && i+1<line.length() && line.charAt(i+1)=='"'){ cur.append('"'); i++; } else inQ=!inQ; }
-            else if (c==',' && !inQ) { out.add(cur.toString()); cur.setLength(0); }
-            else cur.append(c);
+        boolean inQ = false;
+        StringBuilder cur = new StringBuilder();
+        for (int i = 0; i < line.length(); i++) {
+            char c = line.charAt(i);
+            if (c == '"') {
+                if (inQ && i + 1 < line.length() && line.charAt(i + 1) == '"') {
+                    cur.append('"');
+                    i++;
+                } else inQ = !inQ;
+            } else if (c == ',' && !inQ) {
+                out.add(cur.toString());
+                cur.setLength(0);
+            } else cur.append(c);
         }
         out.add(cur.toString());
         return out;

@@ -118,3 +118,12 @@ gradle-app.setting
 ## Java build artifacts
 ##############################
 *.class
+# IntelliJ / Maven / Build outputs
+.idea/
+*.iml
+out/
+target/
+**/target/
+# OS
+.DS_Store
+Thumbs.db

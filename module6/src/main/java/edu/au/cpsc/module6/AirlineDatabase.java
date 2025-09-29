@@ -1,8 +1,3 @@
-package edu.au.cpsc.module4;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 /*
  Project: Module 4 – Flight Designator App
  Author: Alex Newton
@@ -10,20 +5,21 @@ import javafx.collections.ObservableList;
  Date: 2025-09-14
  Description: JavaFX controller for table/detail editor with CSV persistence.
 */
+package edu.au.cpsc.module6;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AirlineDatabase {
-    private final ObservableList<ScheduledFlight> flights = FXCollections.observableArrayList();
+    private final List<ScheduledFlight> flights = new ArrayList<>();
 
-    public ObservableList<ScheduledFlight> getScheduledFlights() { return flights; }
+    // used by controller
+    public List<ScheduledFlight> getAll() { return flights; }
+    public void add(ScheduledFlight f)    { if (f != null) flights.add(f); }
+    public void remove(ScheduledFlight f) { flights.remove(f); }
+    public void save() { /* no-op for this assignment */ }
 
-    public void addScheduledFlight(ScheduledFlight sf) {
-        if (sf == null) throw new IllegalArgumentException("ScheduledFlight cannot be null");
-        flights.add(sf);
-    }
-    public void removeScheduledFlight(ScheduledFlight sf) { flights.remove(sf); }
-
-    public void updateScheduledFlight(ScheduledFlight updated) {
-        int idx = flights.indexOf(updated);
-        if (idx >= 0) flights.set(idx, updated); else flights.add(updated);
-    }
+    // aliases used by older IO code
+    public List<ScheduledFlight> getScheduledFlights() { return flights; }
+    public void addScheduledFlight(ScheduledFlight f)  { add(f); }
 }

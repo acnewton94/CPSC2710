@@ -1,11 +1,3 @@
-package edu.au.cpsc.module4;
-
-import java.time.LocalTime;
-import java.util.EnumSet;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-
 /*
  Project: Module 4 – Flight Designator App
  Author: Alex Newton
@@ -13,90 +5,77 @@ import java.util.Set;
  Date: 2025-09-14
  Description: JavaFX controller for table/detail editor with CSV persistence.
 */
+package edu.au.cpsc.module6;
+
+import java.time.LocalTime;
+import java.util.Objects;
 
 public class ScheduledFlight {
-    private String flightDesignator;
-    private String departureAirportIdent;
+    private String designator;
+    private String origin;       // same as "departureAirportIdent" in older code
+    private String destination;  // same as "arrivalAirportIdent" in older code
     private LocalTime departureTime;
-    private String arrivalAirportIdent;
     private LocalTime arrivalTime;
-    private Set<Day> daysOfWeek = new HashSet<>();
+    private String days = "";    // raw days string (for CSV IO helpers)
 
-    // R = Thu, U = Sun
-    public enum Day { M, T, W, R, F, U, S }
-
-    public String getFlightDesignator() { return flightDesignator; }
-    public void setFlightDesignator(String s) { req(s,"flightDesignator"); this.flightDesignator = s.trim(); }
-
-    public String getDepartureAirportIdent() { return departureAirportIdent; }
-    public void setDepartureAirportIdent(String s) { req(s,"departureAirportIdent"); this.departureAirportIdent = s.trim(); }
-
-    public LocalTime getDepartureTime() { return departureTime; }
-    public void setDepartureTime(LocalTime t) {
-        if (t == null) throw new IllegalArgumentException("departureTime cannot be null");
-        this.departureTime = t;
+    public ScheduledFlight() { // IO sometimes creates then sets via setters
+        this("", "", "", LocalTime.of(0,0), LocalTime.of(0,0));
     }
 
-    public String getArrivalAirportIdent() { return arrivalAirportIdent; }
-    public void setArrivalAirportIdent(String s) { req(s,"arrivalAirportIdent"); this.arrivalAirportIdent = s.trim(); }
-
-    public LocalTime getArrivalTime() { return arrivalTime; }
-    public void setArrivalTime(LocalTime t) {
-        if (t == null) throw new IllegalArgumentException("arrivalTime cannot be null");
-        this.arrivalTime = t;
+    public ScheduledFlight(String designator, String origin, String destination,
+                           LocalTime departureTime, LocalTime arrivalTime) {
+        this.designator = designator;
+        this.origin = origin;
+        this.destination = destination;
+        this.departureTime = departureTime;
+        this.arrivalTime = arrivalTime;
     }
 
-    public Set<Day> getDaysOfWeek() { return daysOfWeek; }
-    public void setDaysOfWeek(Set<Day> d) {
-        if (d == null) throw new IllegalArgumentException("daysOfWeek cannot be null");
-        this.daysOfWeek = new HashSet<>(d);
+    public static ScheduledFlight fromStrings(String designator, String origin, String destination,
+                                              String departHHmm, String arriveHHmm) {
+        return new ScheduledFlight(
+                designator, origin, destination,
+                LocalTime.parse(departHHmm), LocalTime.parse(arriveHHmm)
+        );
     }
 
-    // Convenience: parse "MTWRFUS" -> set
-    public void setDaysFromString(String s) {
-        if (s == null) throw new IllegalArgumentException("days string cannot be null");
-        EnumSet<Day> out = EnumSet.noneOf(Day.class);
-        for (char c : s.toUpperCase().trim().toCharArray()) {
-            switch (c) {
-                case 'M' -> out.add(Day.M);
-                case 'T' -> out.add(Day.T);
-                case 'W' -> out.add(Day.W);
-                case 'R' -> out.add(Day.R);
-                case 'F' -> out.add(Day.F);
-                case 'U' -> out.add(Day.U);
-                case 'S' -> out.add(Day.S);
-                default -> { /* ignore */ }
-            }
-        }
-        this.daysOfWeek = out;
+    public void updateFromStrings(String designator, String origin, String destination,
+                                  String departHHmm, String arriveHHmm) {
+        this.designator = designator;
+        this.origin = origin;
+        this.destination = destination;
+        this.departureTime = LocalTime.parse(departHHmm);
+        this.arrivalTime = LocalTime.parse(arriveHHmm);
     }
 
-    // Display: ordered one-letter string (MTWRFUS)
-    public String daysAsString() {
-        String order = "MTWRFUS";
-        StringBuilder sb = new StringBuilder();
-        for (char c : order.toCharArray()) {
-            if (daysOfWeek.contains(Day.valueOf(String.valueOf(c)))) sb.append(c);
-        }
-        return sb.toString();
-    }
+    public String getDesignator()                 { return designator; }
+    public String getFlightDesignator()           { return designator; }          // alias for IO
+    public String getOrigin()                     { return origin; }
+    public String getDestination()                { return destination; }
+    public String getDepartureAirportIdent()      { return origin; }               // alias for IO
+    public String getArrivalAirportIdent()        { return destination; }          // alias for IO
+    public LocalTime getDepartureTime()           { return departureTime; }
+    public LocalTime getArrivalTime()             { return arrivalTime; }
+    public String daysAsString()                  { return days; }                 // simple raw string
 
-    private static void req(String s, String f) {
-        if (s == null || s.trim().isEmpty()) throw new IllegalArgumentException(f + " cannot be null or empty");
-    }
+    // --- setters expected by IO ---
+    public void setFlightDesignator(String v)     { this.designator = v; }
+    public void setDepartureAirportIdent(String v){ this.origin = v; }
+    public void setArrivalAirportIdent(String v)  { this.destination = v; }
+    public void setDepartureTime(LocalTime t)     { this.departureTime = t; }
+    public void setArrivalTime(LocalTime t)       { this.arrivalTime = t; }
+    public void setDepartureTime(String hhmm)     { this.departureTime = LocalTime.parse(hhmm); }
+    public void setArrivalTime(String hhmm)       { this.arrivalTime = LocalTime.parse(hhmm); }
+    public void setDaysFromString(String s)       { this.days = (s == null ? "" : s.trim()); }
 
+    @Override public String toString() {
+        return designator + " " + origin + "→" + destination + " " + departureTime + "-" + arrivalTime;
+    }
     @Override public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ScheduledFlight that)) return false;
-        return Objects.equals(flightDesignator, that.flightDesignator) &&
-                Objects.equals(departureAirportIdent, that.departureAirportIdent) &&
-                Objects.equals(departureTime, that.departureTime) &&
-                Objects.equals(arrivalAirportIdent, that.arrivalAirportIdent) &&
-                Objects.equals(arrivalTime, that.arrivalTime) &&
-                Objects.equals(daysOfWeek, that.daysOfWeek);
+        if (!(o instanceof ScheduledFlight f)) return false;
+        return Objects.equals(designator, f.designator) &&
+                Objects.equals(departureTime, f.departureTime);
     }
-    @Override public int hashCode() {
-        return Objects.hash(flightDesignator, departureAirportIdent, departureTime,
-                arrivalAirportIdent, arrivalTime, daysOfWeek);
-    }
+    @Override public int hashCode() { return Objects.hash(designator, departureTime); }
 }
