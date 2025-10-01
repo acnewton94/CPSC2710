@@ -1,3 +1,11 @@
+/*
+ * Project: CPSC 2710 — Module 6, Part 1
+ * Author: Alex Newton
+ * Auburn Email: azn0100@auburn.edu
+ * Date: 2025-09-28
+ * Description: JavaFX app for bindings practice per Part 1 instructions.
+ */
+
 package edu.au.cpsc.part1;
 
 import javafx.beans.binding.Bindings;
