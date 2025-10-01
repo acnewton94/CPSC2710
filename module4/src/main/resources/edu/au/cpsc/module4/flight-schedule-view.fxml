@@ -6,7 +6,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="edu.au.cpsc.module4.FlightScheduleController"
+            fx:controller="edu.au.cpsc.module6.FlightScheduleController"
             prefWidth="1100" prefHeight="520">
 
     <!-- Left: Table -->

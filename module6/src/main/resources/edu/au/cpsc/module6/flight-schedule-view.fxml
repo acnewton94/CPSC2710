@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.au.cpsc.module6.FlightScheduleController">
+
+    <padding>
+        <Insets top="12" right="12" bottom="12" left="12"/>
+    </padding>
+
+    <top>
+        <GridPane hgap="10" vgap="8">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="22"/>
+                <ColumnConstraints percentWidth="78"/>
+            </columnConstraints>
+            <children>
+                <Label text="Designator:"              GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="tfDesignator"        GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Origin:"                  GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="tfOrigin"            GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Destination:"             GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <TextField fx:id="tfDestination"       GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <Label text="Depart (HH:mm):"          GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <TextField fx:id="tfDepart"            GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                <Label text="Arrive (HH:mm):"          GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <TextField fx:id="tfArrive"            GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+            </children>
+        </GridPane>
+    </top>
+
+    <center>
+        <TableView fx:id="table" prefHeight="420">
+            <columns>
+                <TableColumn fx:id="colDesignator" text="Designator" prefWidth="140"/>
+                <TableColumn fx:id="colDepIdent"   text="Dep Ident"  prefWidth="120"/>
+                <TableColumn fx:id="colArrIdent"   text="Arr Ident"  prefWidth="120"/>
+                <TableColumn fx:id="colDepTime"    text="Dep Time"   prefWidth="120"/>
+                <TableColumn fx:id="colArrTime"    text="Arr Time"   prefWidth="120"/>
+                <TableColumn fx:id="colDays"       text="Days"       prefWidth="120"/>
+            </columns>
+        </TableView>
+    </center>
+
+    <bottom>
+        <HBox spacing="8" alignment="CENTER_RIGHT">
+            <children>
+                <Button fx:id="btnNew"    text="New"    onAction="#onNew"/>
+                <Button fx:id="btnAdd"    text="Add"    onAction="#onAdd"/>
+                <Button fx:id="btnDelete" text="Delete" onAction="#onDelete"/>
+                <Button fx:id="btnUpdate" text="Update" onAction="#onUpdate"/>
+            </children>
+        </HBox>
+    </bottom>
+</BorderPane>
