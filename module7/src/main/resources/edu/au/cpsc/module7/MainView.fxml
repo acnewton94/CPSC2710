@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/23"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="edu.au.cpsc.module7.MainController">
+
+    <center>
+        <VBox spacing="12">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <Label text="Reading Time Planner" style="-fx-font-size: 18px;"/>
+
+            <HBox spacing="10">
+                <Label text="Pages in Book:"/>
+                <TextField fx:id="txtPages" promptText="e.g. 350"/>
+            </HBox>
+
+            <HBox spacing="10">
+                <Label text="Time to Read One Page (mins):"/>
+                <TextField fx:id="txtTimePerPage" promptText="e.g. 2"/>
+            </HBox>
+
+            <HBox spacing="10">
+                <Label text="Number of Breaks:"/>
+                <TextField fx:id="txtBreaks" promptText="e.g. 2"/>
+            </HBox>
+
+            <HBox spacing="10">
+                <Label text="Break Duration (mins):"/>
+                <TextField fx:id="txtBreakDuration" promptText="e.g. 10"/>
+            </HBox>
+
+            <HBox spacing="10">
+                <Button fx:id="btnCalculate" text="Calculate Time" onAction="#onCalculate"/>
+                <Button fx:id="btnOpenCalendar" text="Open Monthly Plan" onAction="#onOpenCalendar"/>
+            </HBox>
+
+            <TextArea fx:id="txtResults" editable="false" prefRowCount="5"/>
+
+        </VBox>
+    </center>
+</BorderPane>

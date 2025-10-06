@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/23"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="edu.au.cpsc.module7.MonthlyPlanController">
+
+    <center>
+        <VBox spacing="12" padding="20 20 20 20">
+
+            <HBox spacing="10">
+                <DatePicker fx:id="startDatePicker" />
+                <DatePicker fx:id="endDatePicker" />
+                <ComboBox fx:id="daysPerWeekCombo" prefWidth="100" />
+                <Button fx:id="btnGeneratePlan" text="Generate Plan" onAction="#onGeneratePlan" />
+            </HBox>
+
+            <Label fx:id="lblSummary" text="Summary will go here." wrapText="true" />
+
+            <GridPane fx:id="gridCalendar" hgap="4" vgap="4" GridPane.rowIndex="2">
+                <!-- Dynamically generated calendar will go here -->
+            </GridPane>
+
+        </VBox>
+    </center>
+</BorderPane>
